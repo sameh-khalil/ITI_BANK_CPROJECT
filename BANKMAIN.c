@@ -17,9 +17,7 @@ int main (int argc , char * argv[])
 {
 	u8 adminflag=0;
 	u8 options = 0;
-	s8 flag = 0 ;
-	//try();
-	
+	s8 flag = 0 ;	
 	while (1)
 	{
 		
@@ -97,22 +95,7 @@ int main (int argc , char * argv[])
 
 int ADMINCHECK ()
 {
-	/*
-		emp_DB_t DB_ = DB_INIT ();
-		char name [30];
-		char password [30];
-		printf("pls enter username \n");
-		scanf("%s",name);
-		printf("pls enter password \n");
-		scanf("%s",password);
-		int thereis = empsearch(&DB_,name,password);
-		if(thereis==1)
-		{printf("welcome %s \n",name);return 1;}
-		else if (thereis==-1)
-		{printf("wrong username \n");return -1;}
-		else if (thereis==-2)
-		{printf("wrong password \n");return -1;}
-	*/
+
 		char name [30];
 		char password [30];
 		printf("pls enter username \n");
