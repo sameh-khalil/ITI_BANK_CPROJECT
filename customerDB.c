@@ -8,7 +8,6 @@ static void rhm(cus_t * s_cus);
 static void cpytofile(FILE * file2 ,cus_t * s_cus);
 
 
-
 static void rhm(cus_t * s_cus)
 {
 	s_cus->_BID		=(char*)malloc((14)*sizeof(char));
@@ -23,7 +22,8 @@ static void rhm(cus_t * s_cus)
 	s_cus->_nID		=(char*)malloc((14)*sizeof(char));
 	s_cus->_ADDR	=(char*)malloc((s_cus->strsize)*sizeof(char));
 	s_cus->_AGE		=(char*)malloc((4)*sizeof(char));
-	s_cus->_GnID	=(char*)malloc((14)*sizeof(char));		
+	s_cus->_GnID	=(char*)malloc((14)*sizeof(char));	
+		
 }
 
 
@@ -41,8 +41,9 @@ void fhm(cus_t * s_cus)
 		free(s_cus->_N[1]   );
 		free(s_cus->_N[2]   );
 		free(s_cus->_N[3]   );
+		free(s_cus->_N	    );
+
 	}
-	free(s_cus->_N	    );
 	free(s_cus->_P	    );
 	free(s_cus->_S	    );
 	free(s_cus->_BAL	);
@@ -120,11 +121,11 @@ void insertEditedcus (cus_t * s_new_cus)
 {
 
 	cus_t s_cus ={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100};	
-	FILE * file =fopen(DBFILENAME,"r");
+	FILE * file =fopen("cusDB.txt","r");
 	if(file==NULL)
 	{printf("file didn't open \n");return ;}
 
-	FILE * file2 =fopen("new.txt","a");
+	FILE * file2 =fopen("new.txt","w+");
 	if(file2==NULL)
 	{printf("file2 didn't open \n");return ;}
 
@@ -170,8 +171,11 @@ void insertEditedcus (cus_t * s_new_cus)
 	s_cus._ADDR	=NULL;
 	s_cus._AGE	=NULL;
 	s_cus._GnID	=NULL;
-	remove(DBFILENAME);
-	rename("new.txt",DBFILENAME);
+	
+	
+	remove("cusDB.txt");
+	rename("new.txt","cusDB.txt");
+
 	return ;
 
 }
@@ -203,5 +207,195 @@ static void cpytofile(FILE * file2 ,cus_t * s_cus)
 	fprintf(file2,s_cus->_GnID		)   ;
 	fprintf(file2,"\n")            		;
 	
+}
+
+
+
+
+void insertcusAtend (cus_t * s_new_cus)
+{
+
+	cus_t s_cus ={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100};	
+	FILE * file =fopen(DBFILENAME,"a");
+	if(file==NULL)
+	{printf("file didn't open \n");return ;}
+
+	rhm(&s_cus);
+	
+	while (	  fscanf(file, "%s ", s_cus._BID	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[0]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[1]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[2]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[3]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._P		)== 1 \
+			&&fscanf(file, "%s ", s_cus._S		)== 1 \
+			&&fscanf(file, "%s ", s_cus._BAL	)== 1 \
+			&&fscanf(file, "%s ", s_cus._nID	)== 1 \
+			&&fscanf(file, "%s ", s_cus._ADDR	)== 1 \
+			&&fscanf(file, "%s ", s_cus._AGE	)== 1 \
+			&&fscanf(file, "%s ", s_cus._GnID	)== 1  )
+	{
+	
+
+	}
+		printf("kk\n");
+
+	cpytofile(file,s_new_cus);
+	fclose(file);
+
+	fhm(s_new_cus);
+	printf("tt\n");
+	fhm(&s_cus);
+	s_cus._BID	=NULL;
+	s_cus._N	=NULL;	
+	s_cus._P	=NULL;	
+	s_cus._S	=NULL;	
+	s_cus._BAL	=NULL;
+	s_cus._nID	=NULL;
+	s_cus._ADDR	=NULL;
+	s_cus._AGE	=NULL;
+	s_cus._GnID	=NULL;
+
+	s_new_cus->_BID	=NULL;
+	s_new_cus->_N	=NULL;	
+	s_new_cus->_P	=NULL;	
+	s_new_cus->_S	=NULL;	
+	s_new_cus->_BAL	=NULL;
+	s_new_cus->_nID	=NULL;
+	s_new_cus->_ADDR	=NULL;
+	s_new_cus->_AGE	=NULL;
+	s_new_cus->_GnID	=NULL;
+
+
+	printf("kk\n");
+
+	return ;
+
+}
+
+
+
+
+void GETBID (cus_t * s_new_cus)
+{
+
+	cus_t s_cus ={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100};	
+	FILE * file =fopen(DBFILENAME,"r");
+	if(file==NULL)
+	{printf("file didn't open \n");return ;}
+
+	rhm(&s_cus);
+	
+	while (	  fscanf(file, "%s ", s_cus._BID	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[0]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[1]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[2]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[3]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._P		)== 1 \
+			&&fscanf(file, "%s ", s_cus._S		)== 1 \
+			&&fscanf(file, "%s ", s_cus._BAL	)== 1 \
+			&&fscanf(file, "%s ", s_cus._nID	)== 1 \
+			&&fscanf(file, "%s ", s_cus._ADDR	)== 1 \
+			&&fscanf(file, "%s ", s_cus._AGE	)== 1 \
+			&&fscanf(file, "%s ", s_cus._GnID	)== 1  )
+	{
+	
+
+	}
+	fclose(file);
+	u32 bid = strtoint (s_cus._BID)+1;
+	s_new_cus->_BID = inttostr(bid);
+	fhm(&s_cus);
+	s_cus._BID	=NULL;
+	s_cus._N	=NULL;	
+	s_cus._P	=NULL;	
+	s_cus._S	=NULL;	
+	s_cus._BAL	=NULL;
+	s_cus._nID	=NULL;
+	s_cus._ADDR	=NULL;
+	s_cus._AGE	=NULL;
+	s_cus._GnID	=NULL;
+
+
+}
+
+
+u32 strtoint (char * c)
+{
+	s32 j=strlen(c)-1;
+	u32 k = 1 ;
+	u32 num = 0;
+	while(j>=0)
+	{
+		num+=(c[j]-'0')*k;
+		k*=10;
+		j--;
+	}
+	return num ;
+}
+
+
+char * inttostr (u32 num)
+{
+	char * b = (char*)malloc(13*sizeof(char));
+	b[12]='\0';
+	s8 j = 11 ; 
+	while(num>0)
+	{
+		b[j]=(num%10)+'0';
+		num/=10;
+		j--;
+	}
+	while(j>=0)
+	{
+		b[j]='0';
+		j--;
+	}
+	return b ;
+}
+
+
+
+
+cus_t getcusbyBID (char * BID)
+{
+	cus_t s_cus ={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100,0};	
+	FILE * file =fopen(DBFILENAME,"r");
+	if(file==NULL)
+	{printf("file didn't open \n");s_cus.state=1 ;return s_cus ;}
+	rhm(&s_cus);
+	while (	  fscanf(file, "%s ", s_cus._BID	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[0]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[1]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[2]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._N[3]	)== 1 \
+			&&fscanf(file, "%s ", s_cus._P		)== 1 \
+			&&fscanf(file, "%s ", s_cus._S		)== 1 \
+			&&fscanf(file, "%s ", s_cus._BAL	)== 1 \
+			&&fscanf(file, "%s ", s_cus._nID	)== 1 \
+			&&fscanf(file, "%s ", s_cus._ADDR	)== 1 \
+			&&fscanf(file, "%s ", s_cus._AGE	)== 1 \
+			&&fscanf(file, "%s ", s_cus._GnID	)== 1  )
+	{
+		if(strcmp(s_cus._BID,BID)==0)
+		{
+			fclose(file);
+			return s_cus;
+		}
+	}
+	
+	fclose(file);
+	fhm(&s_cus);
+	s_cus._BID	=NULL;
+	s_cus._N	=NULL;	
+	s_cus._P	=NULL;	
+	s_cus._S	=NULL;	
+	s_cus._BAL	=NULL;
+	s_cus._nID	=NULL;
+	s_cus._ADDR	=NULL;
+	s_cus._AGE	=NULL;
+	s_cus._GnID	=NULL;
+	s_cus.state = 1 ;
+	return s_cus;
 }
 

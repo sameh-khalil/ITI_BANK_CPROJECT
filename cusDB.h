@@ -27,7 +27,11 @@ typedef struct{
 cus_t cussearch ( char ** name , char * password);
 void fhm(cus_t * s_cus);
 void insertEditedcus (cus_t * s_new_cus);
-
+void insertcusAtend (cus_t * s_new_cus);
+void GETBID (cus_t * s_new_cus);
+u32 strtoint (char * c);
+char * inttostr (u32 num);
+cus_t getcusbyBID (char * BID);
 
 
 #endif
