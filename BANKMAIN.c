@@ -6,29 +6,32 @@
 #include "STD_TYPES.h"
 #include "empDB.h"
 #include "cusDB.h"
+
+
+
 int ADMINCHECK(void);
-u8 GetOptions (void);
 cus_t cusCHECK (void);
-void printCusInfo (cus_t * s_cus);
+void CreatAcc (void);
+u8 GetexistingaccOptions (void);
+void openexistingaccount (void);
+u8 changePass (cus_t * s_cus);
+void RandomPass (cus_t * s_cus);
+char * concat(char ** x, u8 size);
 s8 SetAccUserName (cus_t * s_cus);
 s8 SetNationalID (cus_t * s_cus);
 s8 SetUserAddress (cus_t * s_cus);
-char * concat(char ** x, u8 size);
 s8 SetAccBalance (cus_t * s_cus);
-s8 SetUserAge (cus_t * s_cus);
 s8 SetAccState (cus_t * s_cus , u8 op);
 s8 SetGARDIANNationalID (cus_t * s_cus);
-void CreatAcc (void);
-u8 GetexistingaccOptions (void);
+s8 SetUserAge (cus_t * s_cus);
 u8 trransop (cus_t * s_cus);
 u8 deposit (cus_t * s_cus);
-void openexistingaccount (void);
-u8 Getuser_adminOptions (void);
-u8 getmony (cus_t * s_cus);
 u8 checkstatus (cus_t * s_cus);
+u8 getmony (cus_t * s_cus);
+void printCusInfo (cus_t * s_cus);
 u8 GetuserOptions (void);
-u8 changePass (cus_t * s_cus);
-void RandomPass (cus_t * s_cus);
+u8 Getuser_adminOptions (void);
+u8 GetOptions (void);
 
 
 
