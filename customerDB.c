@@ -238,13 +238,9 @@ void insertcusAtend (cus_t * s_new_cus)
 	
 
 	}
-		printf("kk\n");
 
 	cpytofile(file,s_new_cus);
 	fclose(file);
-
-	fhm(s_new_cus);
-	printf("tt\n");
 	fhm(&s_cus);
 	s_cus._BID	=NULL;
 	s_cus._N	=NULL;	
@@ -267,7 +263,6 @@ void insertcusAtend (cus_t * s_new_cus)
 	s_new_cus->_GnID	=NULL;
 
 
-	printf("kk\n");
 
 	return ;
 

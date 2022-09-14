@@ -52,8 +52,6 @@ int main (int argc , char * argv[])
 				if(options==1)
 				{
 					CreatAcc();
-						printf("mm\n");
-
 					options = 0 ;
 				}
 				else if(options==2)
@@ -508,8 +506,10 @@ s8 SetUserAge (cus_t * s_cus)
 s8 SetAccState (cus_t * s_cus , u8 op)
 {
 	if(op == 1 )
-	{		s_cus->_S =(char*)malloc(15*sizeof(char));
-		strcpy(s_cus->_S,"Active");}
+	{	
+		s_cus->_S =(char*)malloc(15*sizeof(char));
+		strcpy(s_cus->_S,"Active");
+	}
 	else
 	{
 		int state;
@@ -548,7 +548,8 @@ s8 SetAccState (cus_t * s_cus , u8 op)
 s8 SetGARDIANNationalID (cus_t * s_cus)
 {
 	char * GID_ = (char*)malloc(14*sizeof(char));
-	if(s_cus->_AGE[0]<'2'||(s_cus->_AGE[0]=='2'&&s_cus->_AGE[1]=='0'))
+	u32 age = strtoint(s_cus->_AGE);
+	if(age<21)
 	{
 
 		printf("enter the national your Id :\n");
@@ -576,7 +577,9 @@ s8 SetGARDIANNationalID (cus_t * s_cus)
 
 		s_cus->_GnID=GID_;
 	}
-	else{s_cus->_GnID="000000000000";}
+	else{
+		s_cus->_GnID=(char*)malloc(15*sizeof(char));
+		strcpy(s_cus->_GnID,"00000000000000");}
 
 	return 1 ;
 }
@@ -606,7 +609,7 @@ void CreatAcc ()
 	char ans ;
 	do{printf("creat the new acc?  y / n \n");scanf("\n");scanf("%c",&ans);}while(ans!='y'&&ans!='n');
 	if(ans=='y')
-	{insertcusAtend(&s_cus);}
+	{insertcusAtend(&s_cus);fhm(&s_cus);}
 	else if(ans=='n')
 	{fhm(&s_cus);}
 		
@@ -667,15 +670,12 @@ void openexistingaccount ()
 			return;
 		}
 	}
+	
+	
 	else if (flag==2)
 	{SetAccState(&s_cus,0); return;}
-	else if (flag==3)
-	{
-		if(checkstatus (&s_cus)==0)
-		{printf("accpont not active \n");}
-		else
-		{deposit(&s_cus);return;}
-	}
+
+
 	else if (flag==3)
 	{
 		if(checkstatus (&s_cus)==0)
@@ -769,7 +769,6 @@ u8 trransop (cus_t * s_cus)
 				free(s_cus->_BAL);
 				
 				s_cus->_BAL=inttostr(bal);
-				printf("%d   :%d    :%s",bal,bal2,s_cus->_BID);
 				s_2ndcus._BAL=inttostr(bal2);
 				
 				insertEditedcus(s_cus);
