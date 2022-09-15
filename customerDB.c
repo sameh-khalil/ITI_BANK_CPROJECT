@@ -4,6 +4,11 @@
 #include "STD_TYPES.h"
 #include "cusDB.h"
 #define DBFILENAME "./cusDB.txt"
+#include "bankacc.h"
+#include "empDB.h"
+
+
+
 static void rhm(cus_t * s_cus);
 static void cpytofile(FILE * file2 ,cus_t * s_cus);
 
@@ -352,6 +357,57 @@ char * inttostr (u32 num)
 
 
 
+
+
+char * inttostr2 (u32 num)
+{
+	char * b = (char*)malloc(13*sizeof(char));
+	int i, rem, length = 0, n;
+ 
+    n = num;
+    while (n != 0)
+    {
+        length++;
+        n /= 10;
+    }
+    for (i = 0; i < length; i++)
+    {
+        rem = num % 10;
+        num = num / 10;
+        b[length - (i + 1)] = rem + '0';
+    }
+	b[length]='\0';
+	return b ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 cus_t getcusbyBID (char * BID)
 {
 	cus_t s_cus ={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100,0};	
@@ -394,3 +450,58 @@ cus_t getcusbyBID (char * BID)
 	return s_cus;
 }
 
+
+
+
+
+
+cus_t cusCHECK ()
+{
+	char ** name = (char **)malloc(4*sizeof(char*));
+	name[0] = (char *)malloc(15*sizeof(char));
+	name[1] = (char *)malloc(15*sizeof(char));
+	name[2] = (char *)malloc(15*sizeof(char));
+	name[3] = (char *)malloc(15*sizeof(char));
+	char password [30];
+	printf("pls enter username \n");
+	scanf("%s",name[0]);
+	scanf("%s",name[1]);
+	scanf("%s",name[2]);
+	scanf("%s",name[3]);
+	printf("pls enter password \n");
+	scanf("%s",password);
+	cus_t s_cus =cussearch(name,password);
+
+	if(s_cus.state==2)
+	{
+
+		fhm(&s_cus);
+		printf("no such name\n");
+		free(name[0] );
+		free(name[1] );
+		free(name[2] );
+		free(name[3] );
+		free(name);
+		return s_cus;}
+		
+	else if(s_cus.state==1)
+	{
+		fhm(&s_cus);
+		printf("wrong Password\n");
+		free(name[0] );
+		free(name[1] );
+		free(name[2] );
+		free(name[3] );
+		free(name);
+		return s_cus;
+	}
+	else
+	{
+		free(name[0] );
+		free(name[1] );
+		free(name[2] );
+		free(name[3] );
+		free(name);
+		return s_cus;
+	}
+}

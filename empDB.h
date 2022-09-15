@@ -19,6 +19,9 @@ typedef struct{
 
 
 emp_t empsearch ( char * name , char * password);
-
+int ADMINCHECK(void);
+void openexistingaccount (void);
+void CreatAcc (void);
+u8 GetexistingaccOptions (void);
 
 #endif
